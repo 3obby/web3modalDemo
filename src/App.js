@@ -15,7 +15,7 @@ import {
 } from "@web3modal/ethereum";
 import { Web3Modal, useWeb3ModalTheme } from "@web3modal/react";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { arbitrum, mainnet, polygon } from "wagmi/chains";
+import { polygon } from "wagmi/chains";
 
 function App() {
   const theme = createTheme({
@@ -44,13 +44,18 @@ function App() {
     autoConnect: true,
     connectors: w3mConnectors({ projectId, chains }),
     publicClient,
+    defaultChain: polygon,
   });
   const ethereumClient = new EthereumClient(wagmiConfig, chains);
   console.log(process.env.REACT_APP_DEMO_ID);
   return (
     <>
       <WagmiConfig config={wagmiConfig} />
-      <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
+      <Web3Modal
+        projectId={projectId}
+        ethereumClient={ethereumClient}
+        defaultChain={polygon}
+      />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container sx={{ height: "80vh" }}>
